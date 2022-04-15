@@ -7,8 +7,6 @@ Template Shared Extension is out of the box and ready to use service extension t
 ![image](https://user-images.githubusercontent.com/55215132/163546596-03e2df59-0ecf-4221-ac9a-35db8b370997.png)
 
 
-## License
-MIT
 
    [dill]: <https://github.com/joemccann/dillinger>
    [git-repo-url]: <https://github.com/joemccann/dillinger.git>
