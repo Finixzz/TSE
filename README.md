@@ -1,14 +1,12 @@
 # TSE
 ## What is Template Shared Extension ?
 
-Template Shared Extension is out of the box and ready to use service extension that makes .NET application development even more rapid. Configurable as is, ready to use, whole application service and middleware is ready for services to be injected and utilized. Keep in mind that more improvements are incomming and that this is just initial TSE state!
+Template Shared Extension is out of the box and ready to use service extension that makes .NET Core application development even more rapid. Configurable as is, ready to use, whole application service and middleware is ready for services to be injected and utilized. Keep in mind that more improvements are incomming and that this is just initial TSE state!
 
 ## TSE Injection example
 ![image](https://user-images.githubusercontent.com/55215132/163546596-03e2df59-0ecf-4221-ac9a-35db8b370997.png)
 
 
-## License
-MIT
 
    [dill]: <https://github.com/joemccann/dillinger>
    [git-repo-url]: <https://github.com/joemccann/dillinger.git>
