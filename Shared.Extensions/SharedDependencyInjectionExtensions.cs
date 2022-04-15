@@ -50,6 +50,11 @@ public static class SharedDependencyInjectionExtensions
         }
     }
 
+    /// <summary>
+    /// TODO - Improve !
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
     public static void AddBearerAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(opt =>

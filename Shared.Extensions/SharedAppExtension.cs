@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Shared.Extensions;
 
@@ -45,6 +46,25 @@ public static class SharedAppExtension
             .AllowAnyMethod()
             .AllowAnyHeader());
         }
+    }
+
+    private static void UseAuthMiddleware(this WebApplication app, string authConfigString)
+    {
+        if (!string.IsNullOrEmpty(authConfigString))
+        {
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+        }
+    }
+
+    public static void AddLogging(this WebApplicationBuilder builder,
+                                 string loggingConfiguration)
+    {
+        builder.Logging.ClearProviders();
+        builder.Logging.AddConfiguration(builder.Configuration.GetSection(loggingConfiguration));
+        builder.Logging.AddDebug();
+        builder.Logging.AddConsole();
     }
 }
 
