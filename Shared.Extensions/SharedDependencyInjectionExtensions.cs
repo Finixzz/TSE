@@ -26,19 +26,19 @@ public static class SharedDependencyInjectionExtensions
         switch (databaseProvider)
         {
             case RelationalDatabaseProvider.MicrosoftSQLServer:
-                services.AddDbContextPool<TContextService, TContextImplementation>(
+                services.AddDbContext<TContextService, TContextImplementation>(
                      options => options.UseSqlServer(configuration.GetConnectionString(connectionString))
                      .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
 
             case RelationalDatabaseProvider.MySQL:
-                services.AddDbContextPool<TContextService, TContextImplementation>(
+                services.AddDbContext<TContextService, TContextImplementation>(
                     options => options.UseMySql(configuration.GetConnectionString(connectionString))
                     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
 
             case RelationalDatabaseProvider.PostgreSQL:
-                services.AddDbContextPool<TContextService, TContextImplementation>(
+                services.AddDbContext<TContextService, TContextImplementation>(
                     options => options.UseNpgsql(configuration.GetConnectionString(connectionString))
                     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
