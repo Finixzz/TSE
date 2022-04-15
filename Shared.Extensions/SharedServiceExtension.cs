@@ -15,7 +15,6 @@ public static class SharedServiceExtension
 
     public static void AddServices<TContextService, TContextImplementation, TValidator>(
         this WebApplicationBuilder builder,
-        string configurationString,
         AddDependencyInjection addDependencyInjection,
         RelationalDatabaseProvider? databaseProvider = null,
         string connectionString = null)
@@ -23,18 +22,14 @@ public static class SharedServiceExtension
         where TContextImplementation : DbContext, TContextService
         where TValidator : class
     {
-        IConfiguration configuration = new ConfigurationBuilder()
-                            .AddJsonFile(configurationString)
-                            .Build();
-
         builder.Services.AddDatabaseConfiguration<TContextService, TContextImplementation>(
-            configuration: configuration,
+            configuration: builder.Configuration,
             databaseProvider: databaseProvider,
             connectionString: connectionString);
 
-        builder.Services.AddBearerAuthentication(configuration);
+        builder.Services.AddBearerAuthentication(builder.Configuration);
 
-        addDependencyInjection(builder.Services, configuration);
+        addDependencyInjection(builder.Services, builder.Configuration);
 
         builder.Services.AddControllers()
                         .AddNewtonsoftJson()
