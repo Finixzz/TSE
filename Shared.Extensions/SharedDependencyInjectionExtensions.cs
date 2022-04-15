@@ -67,15 +67,16 @@ public static class SharedDependencyInjectionExtensions
         {
             var key = Encoding.ASCII.GetBytes(configuration.GetSection("Authentication:AccessTokenSecret").Value);
 
-            opt.RequireHttpsMetadata = false;
-            opt.SaveToken = true;
-            opt.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
-            };
+            // TODO
+            //opt.TokenValidationParameters = new TokenValidationParameters
+            //{
+            //    ValidateAudience = true,
+            //    ValidateLifetime = true,
+            //    ValidateIssuerSigningKey = true,
+            //    ValidIssuer = TOADD,
+            //    ValidAudience = TOADD,
+            //    IssuerSigningKey = key,
+            //};
         });
     }
 }
