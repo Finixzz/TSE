@@ -12,39 +12,38 @@ public static class SharedDependencyInjectionExtensions
     public static void AddDatabaseConfiguration<TContextService, TContextImplementation>(
         this IServiceCollection services,
         IConfiguration configuration,
-        RelationalDatabaseProvider? databaseProvider = null,
-        string connectionString = null)
+        DatabaseConfiguration? databaseConfiguration)
         where TContextService : class
         where TContextImplementation : DbContext, TContextService
     {
-        if (connectionString is not null && databaseProvider is null)
-            throw new ArgumentNullException(nameof(databaseProvider));
+        if (databaseConfiguration?.Configuration is not null && databaseConfiguration?.Provider is null)
+            throw new ArgumentNullException(nameof(databaseConfiguration.Provider));
 
-        if (connectionString is null && databaseProvider is not null)
-            throw new ArgumentNullException(nameof(connectionString));
+        if (databaseConfiguration?.Configuration is null && databaseConfiguration?.Provider is not null)
+            throw new ArgumentNullException(nameof(databaseConfiguration.Configuration));
 
-        switch (databaseProvider)
+        switch (databaseConfiguration?.Provider)
         {
             case RelationalDatabaseProvider.MicrosoftSQLServer:
                 services.AddDbContext<TContextService, TContextImplementation>(
-                     options => options.UseSqlServer(configuration.GetConnectionString(connectionString))
+                     options => options.UseSqlServer(configuration.GetConnectionString(databaseConfiguration.Configuration))
                      .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
 
             case RelationalDatabaseProvider.MySQL:
                 services.AddDbContext<TContextService, TContextImplementation>(
-                    options => options.UseMySql(configuration.GetConnectionString(connectionString))
+                    options => options.UseMySql(configuration.GetConnectionString(databaseConfiguration.Configuration))
                     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
 
             case RelationalDatabaseProvider.PostgreSQL:
                 services.AddDbContext<TContextService, TContextImplementation>(
-                    options => options.UseNpgsql(configuration.GetConnectionString(connectionString))
+                    options => options.UseNpgsql(configuration.GetConnectionString(databaseConfiguration.Configuration))
                     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
 
             default:
-                services.AddDbContextPool<TContextService, TContextImplementation>(
+                services.AddDbContext<TContextService, TContextImplementation>(
                     options => options.UseInMemoryDatabase(string.Empty));
                 break;
         }

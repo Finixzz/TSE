@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace Shared.Extensions;
 
-public static class SharedServiceExtension
+public static class SharedServiceExtensions
 {
     public delegate void AddDependencyInjection(
         IServiceCollection services,
@@ -16,16 +16,14 @@ public static class SharedServiceExtension
     public static void AddServices<TContextService, TContextImplementation, TValidator>(
         this WebApplicationBuilder builder,
         AddDependencyInjection addDependencyInjection,
-        RelationalDatabaseProvider? databaseProvider = null,
-        string connectionString = null)
+        DatabaseConfiguration? databaseConfiguration)
         where TContextService : class
         where TContextImplementation : DbContext, TContextService
         where TValidator : class
     {
         builder.Services.AddDatabaseConfiguration<TContextService, TContextImplementation>(
             configuration: builder.Configuration,
-            databaseProvider: databaseProvider,
-            connectionString: connectionString);
+            databaseConfiguration: databaseConfiguration);
 
         builder.Services.AddBearerAuthentication(builder.Configuration);
 

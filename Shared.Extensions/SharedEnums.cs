@@ -7,3 +7,14 @@ public enum RelationalDatabaseProvider
     PostgreSQL
 }
 
+public enum NonRelationalDatabaseProvider
+{
+    MongoDB
+}
+
+public enum AuthenticationType
+{
+    None,
+    Bearer,
+}
+

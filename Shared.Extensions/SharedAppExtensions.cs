@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Shared.Extensions;
 
-public static class SharedAppExtension
+public static class SharedAppExtensions
 {
     public static void AddApplicationMiddleware(this WebApplication app, List<string> allowedOrigins = null)
     {
@@ -58,7 +58,7 @@ public static class SharedAppExtension
         }
     }
 
-    public static void AddLogging(this WebApplicationBuilder builder,
+    public static void AddDefaultLogging(this WebApplicationBuilder builder,
                                  string loggingConfiguration)
     {
         builder.Logging.ClearProviders();
