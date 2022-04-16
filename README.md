@@ -7,7 +7,7 @@ Template Shared Extension is out of a box and ready to use service extension tha
 ![image](https://user-images.githubusercontent.com/55215132/163680020-ffc9fd8f-fe6e-41ff-af71-d4b19a6fa92c.png)
 
 ## Healthcheck on microservices where TSE is injected
-![image](https://user-images.githubusercontent.com/55215132/163681154-11083686-79ff-4394-8529-6634dde5a9cb.png)
+![image](https://user-images.githubusercontent.com/55215132/163681325-bbcb1327-363b-4fa2-9198-f69bd7ebb41d.png)
 
 
 
