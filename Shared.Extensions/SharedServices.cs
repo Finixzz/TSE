@@ -1,7 +1,7 @@
-﻿
-using ImpromptuInterface;
+﻿using ImpromptuInterface;
 
 namespace Shared.Extensions;
+
 public interface IConfigurationService
 {
     DatabaseConfiguration? GetDatabaseConfiguration<TDatabaseProvider>(
