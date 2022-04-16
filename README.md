@@ -4,7 +4,7 @@
 Template Shared Extension is out of a box and ready to use service extension that makes .NET Core application development even more rapid. Configurable as is, ready to use, application service, and middleware is ready for services to be injected and utilized. Keep in mind that more improvements are incoming and that this is just the initial TSE state!
 
 ## TSE Injection example
-![image](https://user-images.githubusercontent.com/55215132/163574883-5c00c27c-2ef3-4715-b260-09eff42cda9c.png)
+![image](https://user-images.githubusercontent.com/55215132/163672767-37195617-f323-4660-829c-7ef0f225fa78.png)
 
 
 
