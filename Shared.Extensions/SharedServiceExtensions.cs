@@ -16,7 +16,8 @@ public static class SharedServiceExtensions
     public static void AddServices<TContextService, TContextImplementation, TValidator>(
         this WebApplicationBuilder builder,
         AddDependencyInjection addDependencyInjection,
-        DatabaseConfiguration? databaseConfiguration)
+        DatabaseConfiguration? databaseConfiguration,
+        AuthConfiguration? authConfiguration)
         where TContextService : class
         where TContextImplementation : DbContext, TContextService
         where TValidator : class
@@ -25,7 +26,7 @@ public static class SharedServiceExtensions
             configuration: builder.Configuration,
             databaseConfiguration: databaseConfiguration);
 
-        builder.Services.AddBearerAuthentication(builder.Configuration);
+        builder.Services.AddBearerAuthentication(builder.Configuration, authConfiguration);
 
         addDependencyInjection(builder.Services, builder.Configuration);
 
@@ -41,4 +42,3 @@ public static class SharedServiceExtensions
         builder.Services.AddHealthChecks();
     }
 }
-

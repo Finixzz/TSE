@@ -42,6 +42,8 @@ public static class SharedDependencyInjectionExtensions
                     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
 
+            // TODO - Add non relational database providers configurations
+
             default:
                 services.AddDbContext<TContextService, TContextImplementation>(
                     options => options.UseInMemoryDatabase(string.Empty));
@@ -54,8 +56,11 @@ public static class SharedDependencyInjectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configuration"></param>
-    public static void AddBearerAuthentication(this IServiceCollection services, IConfiguration configuration)
+    public static void AddBearerAuthentication(this IServiceCollection services, IConfiguration configuration, AuthConfiguration? authConfiguration)
     {
+        if (authConfiguration is null || authConfiguration.AuthenticationType == AuthenticationType.None)
+            return;
+
         services.AddAuthentication(opt =>
         {
             opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -64,7 +69,7 @@ public static class SharedDependencyInjectionExtensions
 
         }).AddJwtBearer(opt =>
         {
-            var key = Encoding.ASCII.GetBytes(configuration.GetSection("Authentication:AccessTokenSecret").Value);
+            //var key = Encoding.ASCII.GetBytes(configuration.GetSection("Authentication:AccessTokenSecret").Value);
 
             // TODO
             //opt.TokenValidationParameters = new TokenValidationParameters

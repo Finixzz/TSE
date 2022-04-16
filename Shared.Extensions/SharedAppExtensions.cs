@@ -6,7 +6,9 @@ namespace Shared.Extensions;
 
 public static class SharedAppExtensions
 {
-    public static void AddApplicationMiddleware(this WebApplication app, List<string> allowedOrigins = null)
+    public static void AddApplicationMiddleware(this WebApplication app,
+                                                AuthConfiguration? authConfiguration,
+                                                List<string>? allowedOrigins)
     {
         //Configure the HTTP request pipeline.
         if (!app.Environment.IsProduction())
@@ -19,9 +21,7 @@ public static class SharedAppExtensions
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();
-
-        app.UseAuthorization();
+        app.UseAuthMiddleware(authConfiguration);
 
         app.MapControllers();
 
@@ -30,7 +30,7 @@ public static class SharedAppExtensions
         app.Run();
     }
 
-    private static void UseCorsMiddleware(this WebApplication app, List<string> allowedOrigins = null)
+    private static void UseCorsMiddleware(this WebApplication app, List<string>? allowedOrigins)
     {
         if (allowedOrigins is null)
         {
@@ -48,18 +48,18 @@ public static class SharedAppExtensions
         }
     }
 
-    private static void UseAuthMiddleware(this WebApplication app, string authConfigString)
+    private static void UseAuthMiddleware(this WebApplication app, AuthConfiguration? authConfiguration)
     {
-        if (!string.IsNullOrEmpty(authConfigString))
-        {
-            app.UseAuthentication();
+        if (authConfiguration is null || authConfiguration.AuthenticationType == AuthenticationType.None)
+            return;
 
-            app.UseAuthorization();
-        }
+        app.UseAuthentication();
+
+        app.UseAuthorization();
     }
 
     public static void AddDefaultLogging(this WebApplicationBuilder builder,
-                                 string loggingConfiguration)
+                                         string loggingConfiguration)
     {
         builder.Logging.ClearProviders();
         builder.Logging.AddConfiguration(builder.Configuration.GetSection(loggingConfiguration));
