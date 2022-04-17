@@ -16,8 +16,7 @@ public class ConfigurationService : IConfigurationService
 {
     public AuthConfiguration GetAuthConfiguration(AuthenticationType authType, string configuration)
     {
-        if (configuration is null)
-            throw new ArgumentException(nameof(configuration));
+        CheckIsConfigurationParameterValid(configuration);
 
         return new
         {
@@ -32,13 +31,18 @@ public class ConfigurationService : IConfigurationService
         if (provider.GetType() != typeof(RelationalDatabaseProvider) && provider.GetType() != typeof(NonRelationalDatabaseProvider))
             throw new ArgumentException(nameof(provider));
 
-        if (configuration is null)
-            throw new ArgumentException(nameof(configuration));
+        CheckIsConfigurationParameterValid(configuration);
 
         return new
         {
             Provider = provider,
             Configuration = configuration
         }.ActLike<DatabaseConfiguration<TProvider>>();
+    }
+
+    private static void CheckIsConfigurationParameterValid(string configuration)
+    {
+        if (string.IsNullOrEmpty(configuration) || string.IsNullOrWhiteSpace(configuration))
+            throw new ArgumentException(nameof(configuration));
     }
 }
