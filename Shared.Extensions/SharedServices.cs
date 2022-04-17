@@ -40,7 +40,7 @@ public class ConfigurationService : IConfigurationService
         }.ActLike<DatabaseConfiguration<TProvider>>();
     }
 
-    private static void CheckIsConfigurationParameterValid(string configuration)
+    private void CheckIsConfigurationParameterValid(string configuration)
     {
         if (string.IsNullOrEmpty(configuration) || string.IsNullOrWhiteSpace(configuration))
             throw new ArgumentException(nameof(configuration));
