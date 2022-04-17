@@ -8,6 +8,7 @@ public interface IConfigurationService
         TProvider provider,
         string configuration)
         where TProvider : Enum;
+
     AuthConfiguration? GetAuthConfiguration(AuthenticationType authType, string configuration);
 }
 
