@@ -50,7 +50,7 @@ public static class SharedAppExtensions
 
     private static void UseAuthMiddleware(this WebApplication app, AuthConfiguration? authConfiguration)
     {
-        if (authConfiguration is null || authConfiguration.AuthenticationType == AuthenticationType.None)
+        if (authConfiguration is null)
             return;
 
         app.UseAuthentication();

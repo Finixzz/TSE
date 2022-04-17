@@ -13,16 +13,17 @@ public static class SharedServiceExtensions
         IServiceCollection services,
         IConfiguration configuration);
 
-    public static void AddServices<TContextService, TContextImplementation, TValidator>(
+    public static void AddServices<TContextService, TContextImplementation, TProvider, TValidator>(
         this WebApplicationBuilder builder,
         AddDependencyInjection addDependencyInjection,
-        DatabaseConfiguration? databaseConfiguration,
+        DatabaseConfiguration<TProvider>? databaseConfiguration,
         AuthConfiguration? authConfiguration)
         where TContextService : class
         where TContextImplementation : DbContext, TContextService
+        where TProvider : Enum
         where TValidator : class
     {
-        builder.Services.AddDatabaseConfiguration<TContextService, TContextImplementation>(
+        builder.Services.AddDatabaseConfiguration<TContextService, TContextImplementation, TProvider>(
             configuration: builder.Configuration,
             databaseConfiguration: databaseConfiguration);
 

@@ -9,20 +9,31 @@ namespace Shared.Extensions;
 
 public static class SharedDependencyInjectionExtensions
 {
-    public static void AddDatabaseConfiguration<TContextService, TContextImplementation>(
+    public static void AddDatabaseConfiguration<TContextService, TContextImplementation, TProvider>(
         this IServiceCollection services,
         IConfiguration configuration,
-        DatabaseConfiguration? databaseConfiguration)
+        DatabaseConfiguration<TProvider>? databaseConfiguration)
         where TContextService : class
         where TContextImplementation : DbContext, TContextService
+        where TProvider : Enum
     {
-        if (databaseConfiguration?.Configuration is not null && databaseConfiguration?.Provider is null)
-            throw new ArgumentNullException(nameof(databaseConfiguration.Provider));
+        if (databaseConfiguration is null)
+        {
+            if (typeof(TProvider) == typeof(RelationalDatabaseProvider))
+            {
+                services.AddDbContext<TContextService, TContextImplementation>(
+                    options => options.UseInMemoryDatabase(string.Empty));
+            }
 
-        if (databaseConfiguration?.Configuration is null && databaseConfiguration?.Provider is not null)
-            throw new ArgumentNullException(nameof(databaseConfiguration.Configuration));
+            if (typeof(TProvider) == typeof(NonRelationalDatabaseProvider))
+            {
 
-        switch (databaseConfiguration?.Provider)
+            }
+
+            return;
+        }
+
+        switch (databaseConfiguration.Provider)
         {
             case RelationalDatabaseProvider.MicrosoftSQLServer:
                 services.AddDbContext<TContextService, TContextImplementation>(
@@ -42,7 +53,9 @@ public static class SharedDependencyInjectionExtensions
                     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
 
-            // TODO - Add non relational database providers configurations
+            case NonRelationalDatabaseProvider.MongoDB:
+                break;
+
 
             default:
                 services.AddDbContext<TContextService, TContextImplementation>(

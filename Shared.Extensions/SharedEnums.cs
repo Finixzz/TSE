@@ -14,7 +14,5 @@ public enum NonRelationalDatabaseProvider
 
 public enum AuthenticationType
 {
-    None,
     Bearer,
 }
-
