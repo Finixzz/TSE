@@ -45,14 +45,20 @@ public static class SharedDependencyInjectionExtensions
                     options => options.UseNpgsql(configuration.GetConnectionString(databaseConfiguration.Configuration))
                     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information));
                 break;
+        }
+    }
 
+    public static void AddDatabaseConfiguration<TContextImplementation, TProvider>(
+        this IServiceCollection services,
+        IConfiguration configuration,
+        DatabaseConfiguration<TProvider> databaseConfiguration)
+        where TContextImplementation : class
+        where TProvider : Enum
+    {
+
+        switch (databaseConfiguration.Provider)
+        {
             case NonRelationalDatabaseProvider.MongoDB:
-                break;
-
-
-            default:
-                services.AddDbContext<TContextService, TContextImplementation>(
-                    options => options.UseInMemoryDatabase(string.Empty));
                 break;
         }
     }
