@@ -55,7 +55,7 @@ public static class SharedServiceExtensions
     }
 
     /// <summary>
-    /// AddServices extension method for relational database provider type
+    /// AddServices extension method for nonrelational database provider type
     /// </summary>
     /// <typeparam name="TContextImplementation"></typeparam>
     /// <typeparam name="TProvider"></typeparam>
