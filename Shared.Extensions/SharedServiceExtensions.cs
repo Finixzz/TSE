@@ -42,4 +42,6 @@ public static class SharedServiceExtensions
 
         builder.Services.AddHealthChecks();
     }
+
+    //TODO - Add extension for non relational database providers
 }

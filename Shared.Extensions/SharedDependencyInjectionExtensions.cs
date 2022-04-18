@@ -19,16 +19,9 @@ public static class SharedDependencyInjectionExtensions
     {
         if (databaseConfiguration is null)
         {
-            if (typeof(TProvider) == typeof(RelationalDatabaseProvider))
-            {
-                services.AddDbContext<TContextService, TContextImplementation>(
-                    options => options.UseInMemoryDatabase(string.Empty));
-            }
 
-            if (typeof(TProvider) == typeof(NonRelationalDatabaseProvider))
-            {
-
-            }
+            services.AddDbContext<TContextService, TContextImplementation>(
+                options => options.UseInMemoryDatabase(string.Empty));
 
             return;
         }
@@ -71,7 +64,7 @@ public static class SharedDependencyInjectionExtensions
     /// <param name="configuration"></param>
     public static void AddBearerAuthentication(this IServiceCollection services, IConfiguration configuration, AuthConfiguration? authConfiguration)
     {
-        if (authConfiguration is null || authConfiguration.AuthenticationType == AuthenticationType.None)
+        if (authConfiguration is null)
             return;
 
         services.AddAuthentication(opt =>
